@@ -1,0 +1,25 @@
+{
+	"name": "TR.link",
+	"env": {
+		"API_ID": {
+			"description": ""
+		},
+		"API_HASH": {
+			"description": ""
+		},
+		"BOT_TOKEN": {
+			"description": ""
+		},
+		"API_KEY": {
+			"description": ""
+		},
+		"SUDO": {
+			"description": ""
+		}
+	},
+	"buildpacks": [
+		{
+			"url": "heroku/python"
+		}
+	]
+}
