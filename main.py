@@ -12,7 +12,7 @@ Bot = Client(
 
 
 
-@Bot.on_message(filters.text & filters.private)
+@Bot.on_message(filters.all & filters.private)
 async def trlink(client: Bot, message):
 	if message.from_user.id in sudo:
 		web = message.text
