@@ -16,7 +16,7 @@ Bot = Client(
 async def trlink(client: Bot, message):
 	if message.from_user.id in sudo:
 		web = message.text
-		link = get("https://tr.link/api/?api={}&url={}&alias=&format=text&ct=1".format(key, web)).text
+		link = get(f"https://tr.link/api/?api={key}&url={web}&alias=&format=text&ct=1").text
 		await asyncio.sleep(0.7)
 		await client.send_message(message.chat.id, f"**Link;\n\n{link}**")
 
