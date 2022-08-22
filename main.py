@@ -18,7 +18,7 @@ async def trlink(client: Bot, message):
 		web = message.text
 		link = get(f"https://tr.link/api/?api={key}&url={web}&alias=&format=text&ct=1").text
 		await asyncio.sleep(0.7)
-		await client.send_message(message.chat.id, f"**Link;\n\n{link}**")
+		await message.reply_text(f"**Link;\n\n{link}**")
 
 
 print("Bot çalıştı!")
