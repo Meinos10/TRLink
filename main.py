@@ -1,7 +1,7 @@
-from pyrogram import Client, filters
-from requests import get
+from pyrogram import *
+from pyrogram.types import *
 from config import *
-import asyncio
+import os, request as req
 
 Bot = Client(
 	"trlink",
@@ -10,16 +10,37 @@ Bot = Client(
 	bot_token=token
 )
 
+def delete_cmd_history():
+	if os.name == "nt":
+		os.system("cls")
+	else:
+		os.system("clear")
 
+
+def url_btn(url):
+	BUTTON = [[InlineKeyboardButton("TrLink", url=url)]]
+	return InlineKeyboardMarkup(BUTTON)
 
 @Bot.on_message(filters.all & filters.private)
 async def trlink(client: Bot, message):
 	if message.from_user.id in sudo:
-		web = message.text
-		link = get(f"https://tr.link/api/?api={key}&url={web}&alias=&format=text&ct=1").text
-		await asyncio.sleep(0.7)
-		await message.reply_text(f"**Link;\n\n{link}**")
+		if not message.text:
+			return await client.send__message(message.chat.id, "**Only url!**")
+			
+		try:
+			web = str(message.text)
+		except Exception as e:
+			return await client.send_message(message.chat.id, "**Only `letters`!**")
+			
+		try:
+			result_url = req.get(f"https://tr.link/api/?api={key}&url={web}&alias=&format=text&ct=1").text
+		except Exception as e:
+			return await client.send_message(message.chat.id, "Error: `{}`".format(str(e)))
+			
+		return await message.reply_text(f"**URL: `{result_url}`**", url_btn(result_url))
 
 
-print("Bot çalıştı!")
-Bot.run()
+delete_cmd_history()
+Bot.start()
+print("Bot started!")
+idle()
