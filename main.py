@@ -22,7 +22,7 @@ def url_btn(url):
 	return InlineKeyboardMarkup(BUTTON)
 
 @Bot.on_message(filters.all & filters.private)
-async def trlink(client: Bot, message):
+async def trlink(client: Bot, message: Message):
 	if message.from_user.id in sudo:
 		if not message.text:
 			return await client.send__message(message.chat.id, "**Only url!**")
